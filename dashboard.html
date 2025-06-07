@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SmartAgriCongo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.png" alt="SmartAgriCongo Logo" class="sidebar-logo">
+                <h3>SmartAgriCongo</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#dashboard"><i class="fas fa-home"></i> Tableau de bord</a>
+                    </li>
+                    <li>
+                        <a href="#profile"><i class="fas fa-user"></i> Profil</a>
+                    </li>
+                    <li>
+                        <a href="#crops"><i class="fas fa-seedling"></i> Mes Cultures</a>
+                    </li>
+                    <li>
+                        <a href="#marketplace"><i class="fas fa-store"></i> Marketplace</a>
+                    </li>
+                    <li>
+                        <a href="#weather"><i class="fas fa-cloud-sun"></i> Météo</a>
+                    </li>
+                    <li>
+                        <a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a>
+                    </li>
+                    <li>
+                        <a href="#settings"><i class="fas fa-cog"></i> Paramètres</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="images/products/gema.jpg" alt="Photo de profil">
+                        <span>NDOUMBA-MBOUBA Duvet Gema</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-seedling"></i>
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>Cultures actives</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="stat-info">
+                            <h3>85%</h3>
+                            <p>Rendement moyen</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-cloud-sun"></i>
+                        <div class="stat-info">
+                            <h3>28°C</h3>
+                            <p>Température actuelle</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="stat-info">
+                            <h3>65%</h3>
+                            <p>Humidité du sol</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Rendement des cultures</h3>
+                        <canvas id="yieldChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Conditions météorologiques</h3>
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="activity-section">
+                    <h3>Activités récentes</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-tint"></i>
+                            <div class="activity-info">
+                                <h4>Irrigation automatique</h4>
+                                <p>Irrigation déclenchée pour le champ de manioc</p>
+                                <span class="activity-time">Il y a 2 heures</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-temperature-high"></i>
+                            <div class="activity-info">
+                                <h4>Alerte température</h4>
+                                <p>Température élevée détectée dans le champ de maïs</p>
+                                <span class="activity-time">Il y a 4 heures</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div class="activity-info">
+                                <h4>Nouvelle commande</h4>
+                                <p>Commande reçue pour 100kg de manioc</p>
+                                <span class="activity-time">Il y a 1 jour</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soil Characteristics Section -->
+                <div class="soil-section">
+                    <h3>Caractéristiques du Sol</h3>
+                    <div class="soil-grid">
+                        <div class="soil-card">
+                            <i class="fas fa-flask"></i>
+                            <div class="soil-info">
+                                <h4>pH du Sol</h4>
+                                <p class="soil-value">6.5</p>
+                                <span class="soil-status optimal">Optimal</span>
+                            </div>
+                        </div>
+                        <div class="soil-card">
+                            <i class="fas fa-temperature-low"></i>
+                            <div class="soil-info">
+                                <h4>Température du Sol</h4>
+                                <p class="soil-value">22°C</p>
+                                <span class="soil-status optimal">Idéal</span>
+                            </div>
+                        </div>
+                        <div class="soil-card">
+                            <i class="fas fa-tint"></i>
+                            <div class="soil-info">
+                                <h4>Humidité du Sol</h4>
+                                <p class="soil-value">65%</p>
+                                <span class="soil-status optimal">Bonne</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nutrition Recommendations Section -->
+                <div class="nutrition-section">
+                    <h3>Recommandations Nutritionnelles</h3>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-card">
+                            <i class="fas fa-seedling"></i>
+                            <div class="nutrition-info">
+                                <h4>Engrais Recommandé</h4>
+                                <p>NPK 10-10-10</p>
+                                <span class="nutrition-details">Équilibre optimal pour la croissance</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="nutrition-info">
+                                <h4>Fréquence d'Application</h4>
+                                <p>Toutes les 2 semaines</p>
+                                <span class="nutrition-details">Prochaine application: 15/03/2024</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-card">
+                            <i class="fas fa-balance-scale"></i>
+                            <div class="nutrition-info">
+                                <h4>Dosage</h4>
+                                <p>2kg par hectare</p>
+                                <span class="nutrition-details">À diluer dans l'eau d'irrigation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html> 
+</html> 
