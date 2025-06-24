@@ -379,3 +379,27 @@ footer {
 .buy-btn:hover {
     background: var(--secondary-color);
 } 
+.error-container {
+    text-align: center;
+    padding: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.error-container h1 {
+    font-size: 5rem;
+    color: #e74c3c;
+}
+
+.home-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.home-link:hover {
+    background: #2980b9;
+}

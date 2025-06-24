@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - SmartAgriCongo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="auth-logo">
+                <h2>Inscription</h2>
+            </div>
+            
+            <!-- Afficher les messages flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="/register" method="POST" enctype="multipart/form-data" id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="fullname" placeholder="Nom complet" required minlength="3">
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" name="phone" placeholder="Téléphone" required pattern="[0-9]{10,15}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="photo">
+                        <i class="fas fa-camera"></i> Photo de profil
+                    </label>
+                    <input type="file" name="photo" id="photo" accept="image/png, image/jpeg, image/jpg">
+                    <small class="form-text">Formats acceptés: JPG, PNG (max 2MB)</small>
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Mot de passe" required minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="confirmPassword" placeholder="Confirmer le mot de passe" required>
+                </div>
+                
+                <div class="form-check">
+                    <input type="checkbox" id="terms" name="terms" required class="form-check-input">
+                    <label for="terms" class="form-check-label">
+                        J'accepte les <a href="#" data-toggle="modal" data-target="#termsModal">conditions d'utilisation</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-button">S'inscrire</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Déjà un compte ? <a href="/login">Se connecter</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour les conditions d'utilisation -->
+    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Conditions d'utilisation</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenu des conditions -->
+                    <p>Vos conditions d'utilisation ici...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/auth.js"></script>
+    <script>
+        // Validation des mots de passe identiques
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const password = document.getElementsByName('password')[0].value;
+            const confirmPassword = document.getElementsByName('confirmPassword')[0].value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Les mots de passe ne correspondent pas');
+                return false;
+            }
+            return true;
+        });
+    </script>
+</body>
+</html>

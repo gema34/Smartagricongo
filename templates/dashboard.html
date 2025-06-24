@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - SmartAgriCongo</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="stylesheet" href="/static/dashboard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .weather-card {
+            background-color: #e6f7ff;
+            border: 1px solid #b3e0ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .weather-card img {
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="sidebar-logo" />
+                <h3>SmartAgriCongo</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Tableau de bord</a>
+                    </li>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="#crops"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
+                    <li><a href="#marketplace"><i class="fas fa-store"></i> Marketplace</a></li>
+                    <li><a href="#weather"><i class="fas fa-cloud-sun"></i> Météo</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Paramètres</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('logout') }}" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher..." />
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}"
+                        alt="Photo de {{ user.fullname }}"
+                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default-profile.jpg') }}';" />
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Welcome Message -->
+                <div class="welcome-message">
+                    <h2>Bienvenue, {{ user.fullname }}!</h2>
+                    <p>Voici un aperçu de vos activités agricoles</p>
+                </div>
+
+                <!-- Statistiques et Météo -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-seedling"></i>
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>Cultures actives</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="stat-info">
+                            <h3>85%</h3>
+                            <p>Rendement moyen</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-tint"></i>
+                        <div class="stat-info">
+                            <h3>65%</h3>
+                            <p>Humidité du sol</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphiques -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Rendement des cultures</h3>
+                        <canvas id="yieldChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Conditions météorologiques</h3>
+                        <canvas id="weatherChart"></canvas>
+                    </div>
+                     <div class="chart-card" id="weather">
+                        <h3>Météo d'aujourd'hui à Brazzaville</h3>
+                            <div class="weather-scroller">
+                                
+    <ul id="weather-messages">
+        <!-- Les lignes seront injectées dynamiquement -->
+    </ul>
+</div>
+                </div>
+
+                <!-- Activités récentes -->
+                <div class="activity-section">
+                    <h3>Activités récentes</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-tint"></i>
+                            <div class="activity-info">
+                                <h4>Irrigation automatique</h4>
+                                <p>Irrigation déclenchée pour le champ de manioc</p>
+                                <span class="activity-time">Il y a 2 heures</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-temperature-high"></i>
+                            <div class="activity-info">
+                                <h4>Alerte température</h4>
+                                <p>Température élevée détectée dans le champ de maïs</p>
+                                <span class="activity-time">Il y a 4 heures</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div class="activity-info">
+                                <h4>Nouvelle commande</h4>
+                                <p>Commande reçue pour 100kg de manioc</p>
+                                <span class="activity-time">Il y a 1 jour</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS Scripts -->
+    <script>
+        // Météo dynamique
+        fetch("/get_weather")
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                    return;
+                }
+                document.getElementById("weather-icon").src = data.icon;
+                document.getElementById("weather-temp").textContent = data.temp;
+                document.getElementById("weather-desc").textContent = data.description;
+                document.getElementById("weather-humidity").textContent = data.humidity;
+                document.getElementById("weather-wind").textContent = data.wind;
+                document.getElementById("weather-time").textContent = data.updated;
+            })
+            .catch(err => console.error("Erreur météo :", err));
+
+        // Graphiques
+        new Chart(document.getElementById('yieldChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Manioc', 'Maïs', 'Haricots', 'Bananes'],
+                datasets: [{
+                    label: 'Rendement (kg/ha)',
+                    data: [1200, 800, 600, 1500],
+                    backgroundColor: ['#4bc0c0', '#36a2eb', '#ffce56', '#9966ff']
+                }]
+            }
+        });
+
+        new Chart(document.getElementById('weatherChart'), {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Température (°C)',
+                    data: [28, 30, 29, 31, 30, 29, 28],
+                    borderColor: '#ff6384',
+                    fill: false
+                }, {
+                    label: 'Précipitations (mm)',
+                    data: [0, 5, 2, 0, 0, 10, 15],
+                    borderColor: '#36a2eb',
+                    fill: false
+                }]
+            }
+        });
+
+        // Déconnexion
+        document.getElementById('logoutBtn').addEventListener('click', function (e) {
+            if (!confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                e.preventDefault();
+            }
+        });
+        // Scroll des messages météo
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('weather-messages');
+    let currentIndex = 0;
+    const linesPerView = 2;
+    const delay = 1000;
+
+    // Fonction de défilement
+    function showNextLines() {
+        const lineHeight = container.querySelector('li')?.offsetHeight || 20;
+        const offset = currentIndex * lineHeight;
+        container.style.transform = `translateY(-${offset}px)`;
+        currentIndex++;
+
+        if (currentIndex > container.children.length - linesPerView) {
+            setTimeout(() => {
+                container.style.transition = 'none';
+                container.style.transform = 'translateY(0)';
+                currentIndex = 0;
+                void container.offsetWidth; // Trick to force repaint
+                container.style.transition = 'transform 0.5s ease';
+            }, delay);
+        }
+    }
+
+    // Charger la météo depuis l'API Flask
+    fetch("/get_weather")
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                container.innerHTML = `<li>Erreur de météo</li>`;
+                return;
+            }
+
+            const weatherLines = [
+                
+                `🌡 Température : ${data.temp} °C`,
+                `☁️ Ciel : ${data.description}`,
+                `💧 Humidité : ${data.humidity}%`,
+                `🌬 Vent : ${data.wind} m/s`,
+                `🕒 Mise à jour : ${data.updated}`
+            ];
+
+            // Injection des lignes dans le UL
+            container.innerHTML = weatherLines.map(line => `<li>${line}</li>`).join("");
+
+            // Lancer le scroll toutes les x secondes
+            setInterval(showNextLines, delay);
+        })
+        .catch(err => {
+            console.error("Erreur météo :", err);
+            container.innerHTML = `<li>Impossible de charger la météo</li>`;
+        });
+});
+
+    </script>
+</body>
+
+</html>

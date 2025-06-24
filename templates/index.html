@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartAgriCongo - Agriculture Intelligente en Afrique</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="logo">
-            <img src="images/logos.png" alt="SmartAgriCongo Logo">
+            <img src="/static/images/logos.png" alt="SmartAgriCongo Logo">
         </div>
         <ul class="nav-links">
             <li><a href="#accueil">Accueil</a></li>
@@ -23,8 +23,8 @@
             <li><a href="#about">À propos</a></li> 
         </ul>
         <div class="auth-buttons">
-            <button class="login-btn" onclick="window.location.href='login.html'">Connexion</button>
-            <button class="register-btn" onclick="window.location.href='register.html'">Inscription</button>
+            <button class="login-btn" onclick="window.location.href='/login'">Connexion</button>
+            <button class="register-btn" onclick="window.location.href='/register'">Inscription</button>
         </div>
     </nav>
 
@@ -161,7 +161,7 @@
         <h2>À Propos</h2>
         <div class="about-content">
             <div class="founder-info">
-                <img src="images/products/gema.jpg" alt="Porteur du projet">
+                <img src="/static/images/products/gema.jpg" alt="Porteur du projet">
                 <h3>Porteur du Projet</h3>
                 <p>NDOUMBA-MBOUBA Duvet Gema Jeune informaticien congolais passionné par l'innovation technologique en agriculture</p>
             </div>
@@ -202,6 +202,21 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/static/script.js"></script>
+    <script>
+        // Gestion du défilement fluide pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>

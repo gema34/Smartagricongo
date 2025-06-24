@@ -81,17 +81,17 @@ if (marketplacePreview) {
         { 
             name: 'Manioc', 
             price: '5000 FCFA/kg', 
-            image: 'images/MANIOC.jpg'
+            image: 'static/images/MANIOC.jpg'
         },
         { 
             name: 'Bananes', 
             price: '5000 FCFA/kg', 
-            image: 'images/products/bananes.jpg'
+            image: 'static/images/products/bananes.jpg'
         },
         { 
             name: 'Maïs', 
             price: '3000 FCFA/kg', 
-            image: 'images/OIP.jpg'
+            image: 'static/images/OIP.jpg'
         }
     ];
 

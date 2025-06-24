@@ -4,39 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - SmartAgriCongo</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/auth.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-box">
             <div class="auth-header">
-                <img src="images/logos.png" alt="SmartAgriCongo Logo" class="auth-logo">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="auth-logo">
                 <h2>Connexion</h2>
             </div>
-            <form id="loginForm" class="auth-form">
+            <form action="/login" method="POST" id="loginForm" class="auth-form">
                 <div class="form-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Mot de passe" required>
+                    <input type="password" name="password" placeholder="Mot de passe" required>
                 </div>
+                
                 <div class="form-options">
                     <label>
                         <input type="checkbox" id="remember"> Se souvenir de moi
                     </label>
                     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
                 </div>
-                <button type="submit" class="auth-button" onclick="window.location.href='dashboard.html' ">Se connecter</button>
+                <button type="submit" class="auth-button">Se connecter</button>
             </form>
             <div class="auth-footer">
-                <p>Pas encore de compte ? <a href="register.html">S'inscrire</a></p>
+                <p>Pas encore de compte ? <a href="/register">S'inscrire</a></p>
             </div>
         </div>
     </div>
-    <script src="auth.js"></script>
+    <script src="/static/auth.js"></script>
 </body>
-</html> 
+</html>
