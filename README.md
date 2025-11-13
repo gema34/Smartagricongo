@@ -41,53 +41,93 @@ SmartAgriCongo est une plateforme innovante dédiée à l'agriculture intelligen
   - Chart.js pour les graphiques
   - Font Awesome pour les icônes
 
-- **Backend** (à implémenter)
-  - Node.js
-  - Express.js
-  - MongoDB
-  - JWT pour l'authentification
+- **Backend**
+  - Python 3.7+
+  - Flask (framework web)
+  - Firebase Firestore (base de données)
+  - Firebase Admin SDK
+  - Werkzeug (hachage de mots de passe)
+  - OpenWeatherMap API (météo)
+
+## Prérequis
+
+- Python 3.7 ou supérieur
+- pip (gestionnaire de paquets Python)
+- Un compte Firebase (gratuit)
+- Clé API OpenWeatherMap (optionnel, pour les fonctionnalités météo)
 
 ## Installation
 
-1. Clonez le dépôt :
+### 1. Clonez le dépôt :
 ```bash
 git clone https://github.com/votre-username/smartagricongo.git
+cd smartagricongo
 ```
 
-2. Installez les dépendances :
+### 2. Créez un environnement virtuel (recommandé) :
 ```bash
-npm install
+python3 -m venv venv
+source venv/bin/activate  # Sur Linux/Mac
+# ou
+venv\Scripts\activate  # Sur Windows
 ```
 
-3. Lancez le serveur de développement :
+### 3. Installez les dépendances Python :
 ```bash
-npm start
+pip install -r requirements.txt
 ```
 
-4. Ouvrez votre navigateur et accédez à :
+### 4. Configurez Firebase :
+
+**⚠️ IMPORTANT :** Consultez le fichier [FIREBASE_SETUP.md](FIREBASE_SETUP.md) pour les instructions détaillées de configuration Firebase.
+
+Résumé rapide :
+1. Créez un projet sur [Firebase Console](https://console.firebase.google.com/)
+2. Activez Firestore Database
+3. Téléchargez la clé de service (`serviceAccountKey.json`)
+4. Placez le fichier `serviceAccountKey.json` à la racine du projet
+
+### 5. Lancez l'application :
+```bash
+python app.py
 ```
-http://localhost:3000
+
+### 6. Ouvrez votre navigateur et accédez à :
+```
+http://localhost:5000
 ```
 
 ## Structure du Projet
 
 ```
 smartagricongo/
-├── index.html          # Page d'accueil
-├── login.html          # Page de connexion
-├── register.html       # Page d'inscription
-├── dashboard.html      # Tableau de bord
-├── styles.css          # Styles globaux
-├── auth.css           # Styles d'authentification
-├── dashboard.css      # Styles du tableau de bord
-├── script.js          # Script principal
-├── auth.js           # Script d'authentification
-├── dashboard.js      # Script du tableau de bord
-└── images/           # Dossier des images
-    ├── logo.png
-    ├── hero-bg.jpg
-    └── products/
+├── app.py                 # Application Flask principale
+├── firebase_config.py     # Configuration Firebase
+├── requirements.txt       # Dépendances Python
+├── FIREBASE_SETUP.md      # Guide de configuration Firebase
+├── templates/             # Templates HTML
+│   ├── index.html         # Page d'accueil
+│   ├── login.html         # Page de connexion
+│   ├── register.html      # Page d'inscription
+│   ├── dashboard.html     # Tableau de bord
+│   └── 404.html           # Page d'erreur 404
+├── static/                # Fichiers statiques
+│   ├── styles.css         # Styles globaux
+│   ├── auth.css           # Styles d'authentification
+│   ├── dashboard.css      # Styles du tableau de bord
+│   ├── script.js          # Script principal
+│   ├── auth.js            # Script d'authentification
+│   ├── dashboard.js       # Script du tableau de bord
+│   ├── images/            # Images
+│   └── uploads/           # Photos de profil uploadées
+└── serviceAccountKey.json # Clé Firebase (à ajouter, non versionnée)
 ```
+
+## Configuration Firebase
+
+Pour plus de détails sur la configuration Firebase, consultez le fichier [FIREBASE_SETUP.md](FIREBASE_SETUP.md).
+
+**Note importante :** Le fichier `serviceAccountKey.json` ne doit jamais être commité dans le dépôt Git. Il est déjà inclus dans `.gitignore`.
 
 ## Captures d'Écran
 

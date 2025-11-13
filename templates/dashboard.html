@@ -7,6 +7,7 @@
     <title>Dashboard - SmartAgriCongo</title>
     <link rel="stylesheet" href="/static/styles.css" />
     <link rel="stylesheet" href="/static/dashboard.css" />
+    <link rel="stylesheet" href="/static/chatbot.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -41,9 +42,9 @@
                         <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Tableau de bord</a>
                     </li>
                     <li><a href="#profile"><i class="fas fa-user"></i> Profil</a></li>
-                    <li><a href="#crops"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
-                    <li><a href="#marketplace"><i class="fas fa-store"></i> Marketplace</a></li>
-                    <li><a href="#weather"><i class="fas fa-cloud-sun"></i> Météo</a></li>
+                    <li><a href="{{ url_for('cultures') }}"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
+                    <li><a href="{{ url_for('marketplace') }}"><i class="fas fa-store"></i> Marketplace</a></li>
+                    <li><a href="{{ url_for('meteo') }}"><i class="fas fa-cloud-sun"></i> Météo</a></li>
                     <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a></li>
                     <li><a href="#settings"><i class="fas fa-cog"></i> Paramètres</a></li>
                 </ul>
@@ -271,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
     </script>
+    <script src="/static/chatbot.js"></script>
 </body>
 
 </html>

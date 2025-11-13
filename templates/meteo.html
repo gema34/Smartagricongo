@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo - SmartAgriCongo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="/static/meteo.css">
+    <link rel="stylesheet" href="/static/chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="sidebar-logo">
+                <h3>SmartAgriCongo</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Tableau de bord</a></li>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="{{ url_for('cultures') }}"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
+                    <li><a href="{{ url_for('marketplace') }}"><i class="fas fa-store"></i> Marketplace</a></li>
+                    <li class="active"><a href="{{ url_for('meteo') }}"><i class="fas fa-cloud-sun"></i> Météo</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Paramètres</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}"
+                        alt="Photo de {{ user.fullname }}"
+                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default/default-profile.jpg') }}';">
+                </div>
+            </header>
+
+            <!-- Météo Content -->
+            <div class="meteo-content">
+                <div class="page-header">
+                    <h1><i class="fas fa-cloud-sun"></i> Conditions Météorologiques</h1>
+                    <p>Surveillez le climat actuel pour optimiser vos cultures</p>
+                </div>
+
+                <!-- Main Weather Card -->
+                <div class="weather-main-card">
+                    <div class="weather-location">
+                        <h2><i class="fas fa-map-marker-alt"></i> Brazzaville, Congo</h2>
+                        <p class="weather-date" id="currentDate"></p>
+                    </div>
+                    
+                    <div class="weather-display">
+                        <div class="weather-icon-container">
+                            <img id="weatherIcon" src="" alt="Weather Icon" class="weather-icon">
+                        </div>
+                        <div class="weather-temp-container">
+                            <span class="weather-temp" id="weatherTemp">--</span>
+                            <span class="weather-unit">°C</span>
+                        </div>
+                        <div class="weather-description" id="weatherDescription">Chargement...</div>
+                    </div>
+
+                    <div class="weather-details-grid">
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="detail-info">
+                                <span class="detail-label">Humidité</span>
+                                <span class="detail-value" id="weatherHumidity">--</span>
+                                <span class="detail-unit">%</span>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <div class="detail-info">
+                                <span class="detail-label">Vent</span>
+                                <span class="detail-value" id="weatherWind">--</span>
+                                <span class="detail-unit">m/s</span>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="detail-info">
+                                <span class="detail-label">Ressenti</span>
+                                <span class="detail-value" id="weatherFeelsLike">--</span>
+                                <span class="detail-unit">°C</span>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <div class="detail-info">
+                                <span class="detail-label">Pression</span>
+                                <span class="detail-value" id="weatherPressure">--</span>
+                                <span class="detail-unit">hPa</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="weather-update-time">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Dernière mise à jour: <span id="updateTime">--</span></span>
+                        <button class="refresh-btn" id="refreshBtn" title="Actualiser">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Agricultural Recommendations -->
+                <div class="recommendations-card">
+                    <h3><i class="fas fa-lightbulb"></i> Recommandations Agricoles</h3>
+                    <div class="recommendations-list" id="recommendationsList">
+                        <div class="recommendation-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Conditions météorologiques favorables pour l'irrigation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Forecast (Placeholder for future) -->
+                <div class="forecast-section">
+                    <h3><i class="fas fa-calendar-week"></i> Prévisions (à venir)</h3>
+                    <p class="coming-soon">Les prévisions météorologiques seront bientôt disponibles</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/meteo.js"></script>
+    <script src="/static/chatbot.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - SmartAgriCongo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="/static/marketplace.css">
+    <link rel="stylesheet" href="/static/chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="sidebar-logo">
+                <h3>SmartAgriCongo</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Tableau de bord</a></li>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profil</a></li>
+                    <li><a href="{{ url_for('cultures') }}"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
+                    <li class="active"><a href="{{ url_for('marketplace') }}"><i class="fas fa-store"></i> Marketplace</a></li>
+                    <li><a href="{{ url_for('meteo') }}"><i class="fas fa-cloud-sun"></i> Météo</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Paramètres</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Rechercher un produit...">
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}"
+                        alt="Photo de {{ user.fullname }}"
+                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default/default-profile.jpg') }}';">
+                </div>
+            </header>
+
+            <!-- Marketplace Content -->
+            <div class="marketplace-content">
+                <div class="page-header">
+                    <h1><i class="fas fa-store"></i> Marketplace</h1>
+                    <p>Découvrez et achetez les meilleurs produits agricoles du Congo</p>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label>Catégorie:</label>
+                        <select id="categoryFilter">
+                            <option value="all">Toutes les catégories</option>
+                            <option value="manioc">Manioc</option>
+                            <option value="banane">Banane</option>
+                            <option value="mais">Maïs</option>
+                            <option value="haricot">Haricot</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Prix:</label>
+                        <select id="priceFilter">
+                            <option value="all">Tous les prix</option>
+                            <option value="low">Moins de 1000 FCFA</option>
+                            <option value="medium">1000 - 5000 FCFA</option>
+                            <option value="high">Plus de 5000 FCFA</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Localisation:</label>
+                        <select id="locationFilter">
+                            <option value="all">Toutes les régions</option>
+                            <option value="brazzaville">Brazzaville</option>
+                            <option value="pointe-noire">Pointe-Noire</option>
+                            <option value="dolisie">Dolisie</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- Manioc Products -->
+                    <div class="product-card" data-category="manioc" data-price="medium">
+                        <div class="product-image">
+                            <img src="/static/images/products/manioc frais.jpg" alt="Manioc frais" onerror="this.src='/static/images/MANIOC.jpg'">
+                            <span class="product-badge">Nouveau</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>Manioc Frais Premium</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Ferme Mbouba</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Brazzaville</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.5 (23 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">2 500 FCFA</span>
+                                <span class="unit">/ 10kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="manioc" data-price="low">
+                        <div class="product-image">
+                            <img src="/static/images/products/manioc culture.jpg" alt="Manioc bio" onerror="this.src='/static/images/MANIOC.jpg'">
+                            <span class="product-badge hot">Populaire</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>Manioc Bio Certifié</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Coopérative Agricole</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Pointe-Noire</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.0 (15 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">1 800 FCFA</span>
+                                <span class="unit">/ 10kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Banane Products -->
+                    <div class="product-card" data-category="banane" data-price="medium">
+                        <div class="product-image">
+                            <img src="/static/images/regime banane.jpg" alt="Bananes plantain">
+                            <span class="product-badge">Bio</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>Bananes Plantain Mûres</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Plantation Kaya</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Dolisie</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>5.0 (31 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">3 200 FCFA</span>
+                                <span class="unit">/ régime</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="banane" data-price="high">
+                        <div class="product-image">
+                            <img src="/static/images/products/banane sucre.jpg" alt="Bananes sucrées">
+                        </div>
+                        <div class="product-info">
+                            <h3>Bananes Sucrées Premium</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Ferme Tropicale</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Brazzaville</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.7 (18 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">5 500 FCFA</span>
+                                <span class="unit">/ régime</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maïs Products -->
+                    <div class="product-card" data-category="mais" data-price="low">
+                        <div class="product-image">
+                            <img src="/static/images/OIP.jpg" alt="Maïs frais" onerror="this.src='/static/images/products/mais.jpg'">
+                        </div>
+                        <div class="product-info">
+                            <h3>Maïs Frais du Terroir</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Agriculteur Local</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Brazzaville</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.2 (12 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">1 200 FCFA</span>
+                                <span class="unit">/ kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mais" data-price="medium">
+                        <div class="product-image">
+                            <img src="/static/images/mais2.jpg" alt="Maïs bio" onerror="this.src='/static/images/products/mais.jpg'">
+                            <span class="product-badge">Bio</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>Maïs Bio Sélectionné</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Ferme Bio Congo</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Pointe-Noire</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.6 (20 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">2 800 FCFA</span>
+                                <span class="unit">/ 5kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Haricot Products -->
+                    <div class="product-card" data-category="haricot" data-price="low">
+                        <div class="product-image">
+                            <img src="/static/images/haricot1.avif" alt="Haricots rouges" onerror="this.src='/static/images/haricot j.jpg'">
+                        </div>
+                        <div class="product-info">
+                            <h3>Haricots Rouges Secs</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Coopérative du Sud</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Dolisie</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span>4.1 (9 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">1 500 FCFA</span>
+                                <span class="unit">/ kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="haricot" data-price="medium">
+                        <div class="product-image">
+                            <img src="/static/images/haricot j.jpg" alt="Haricots verts" onerror="this.src='/static/images/haricot.jpg'">
+                            <span class="product-badge">Frais</span>
+                        </div>
+                        <div class="product-info">
+                            <h3>Haricots Verts Frais</h3>
+                            <p class="product-seller"><i class="fas fa-user"></i> Jardin Potager</p>
+                            <p class="product-location"><i class="fas fa-map-marker-alt"></i> Brazzaville</p>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span>4.5 (14 avis)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="price">2 000 FCFA</span>
+                                <span class="unit">/ kg</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-primary"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                                <button class="btn-secondary"><i class="fas fa-heart"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/marketplace.js"></script>
+    <script src="/static/chatbot.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Cultures - SmartAgriCongo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="/static/cultures.css">
+    <link rel="stylesheet" href="/static/chatbot.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="/static/images/logos.png" alt="SmartAgriCongo Logo" class="sidebar-logo">
+                <h3>SmartAgriCongo</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Tableau de bord</a></li>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profil</a></li>
+                    <li class="active"><a href="{{ url_for('cultures') }}"><i class="fas fa-seedling"></i> Mes Cultures</a></li>
+                    <li><a href="{{ url_for('marketplace') }}"><i class="fas fa-store"></i> Marketplace</a></li>
+                    <li><a href="{{ url_for('meteo') }}"><i class="fas fa-cloud-sun"></i> Météo</a></li>
+                    <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analyses</a></li>
+                    <li><a href="#settings"><i class="fas fa-cog"></i> Paramètres</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher une culture...">
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}"
+                        alt="Photo de {{ user.fullname }}"
+                        onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default/default-profile.jpg') }}';">
+                </div>
+            </header>
+
+            <!-- Cultures Content -->
+            <div class="cultures-content">
+                <div class="page-header">
+                    <h1><i class="fas fa-seedling"></i> Mes Cultures</h1>
+                    <p>Découvrez les cultures traditionnelles du Congo et leurs caractéristiques</p>
+                </div>
+
+                <!-- Cultures Grid -->
+                <div class="cultures-grid">
+                    <!-- Manioc -->
+                    <div class="culture-card manioc">
+                        <div class="culture-image">
+                            <img src="/static/images/products/manioc culture.jpg" alt="Culture de Manioc" onerror="this.src='/static/images/products/manioc.jpg'">
+                            <div class="culture-overlay">
+                                <span class="culture-icon"><i class="fas fa-seedling"></i></span>
+                            </div>
+                        </div>
+                        <div class="culture-content">
+                            <h2>Manioc</h2>
+                            <p class="culture-scientific">Manihot esculenta</p>
+                            <div class="culture-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span><strong>Période de plantation:</strong> Toute l'année</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Durée de croissance:</strong> 8-12 mois</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-thermometer-half"></i>
+                                    <span><strong>Température idéale:</strong> 25-30°C</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-tint"></i>
+                                    <span><strong>Besoin en eau:</strong> Modéré</span>
+                                </div>
+                            </div>
+                            <div class="culture-description">
+                                <h3>Description</h3>
+                                <p>Le manioc est une culture de base essentielle au Congo. Cette plante robuste produit des racines tubéreuses riches en glucides. Traditionnellement cultivé en association avec d'autres cultures, le manioc est résistant à la sécheresse et s'adapte bien aux sols pauvres.</p>
+                            </div>
+                            <div class="culture-tips">
+                                <h3><i class="fas fa-lightbulb"></i> Conseils de culture</h3>
+                                <ul>
+                                    <li>Planter dans un sol bien drainé</li>
+                                    <li>Espacement recommandé: 1m x 1m</li>
+                                    <li>Désherbage régulier nécessaire</li>
+                                    <li>Récolte après jaunissement des feuilles</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Banane -->
+                    <div class="culture-card banane">
+                        <div class="culture-image">
+                            <img src="/static/images/products/banane culture1.jpg" alt="Culture de Banane">
+                            <div class="culture-overlay">
+                                <span class="culture-icon"><i class="fas fa-seedling"></i></span>
+                            </div>
+                        </div>
+                        <div class="culture-content">
+                            <h2>Banane</h2>
+                            <p class="culture-scientific">Musa acuminata</p>
+                            <div class="culture-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span><strong>Période de plantation:</strong> Début saison des pluies</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Durée de croissance:</strong> 9-12 mois</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-thermometer-half"></i>
+                                    <span><strong>Température idéale:</strong> 26-30°C</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-tint"></i>
+                                    <span><strong>Besoin en eau:</strong> Élevé</span>
+                                </div>
+                            </div>
+                            <div class="culture-description">
+                                <h3>Description</h3>
+                                <p>La banane plantain est une culture vivrière importante au Congo. Elle pousse en régimes et est très appréciée pour sa valeur nutritionnelle. Les bananiers nécessitent un climat chaud et humide, typique des régions tropicales du Congo.</p>
+                            </div>
+                            <div class="culture-tips">
+                                <h3><i class="fas fa-lightbulb"></i> Conseils de culture</h3>
+                                <ul>
+                                    <li>Planter dans un sol riche et bien drainé</li>
+                                    <li>Protéger du vent fort</li>
+                                    <li>Arrosage régulier et abondant</li>
+                                    <li>Paillage recommandé pour conserver l'humidité</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maïs -->
+                    <div class="culture-card mais">
+                        <div class="culture-image">
+                            <img src="/static/images/products/mais culture1.jpg" alt="Culture de Maïs" onerror="this.src='/static/images/products/mais.jpg'">
+                            <div class="culture-overlay">
+                                <span class="culture-icon"><i class="fas fa-seedling"></i></span>
+                            </div>
+                        </div>
+                        <div class="culture-content">
+                            <h2>Maïs</h2>
+                            <p class="culture-scientific">Zea mays</p>
+                            <div class="culture-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span><strong>Période de plantation:</strong> Saison des pluies</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Durée de croissance:</strong> 3-4 mois</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-thermometer-half"></i>
+                                    <span><strong>Température idéale:</strong> 20-30°C</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-tint"></i>
+                                    <span><strong>Besoin en eau:</strong> Modéré à élevé</span>
+                                </div>
+                            </div>
+                            <div class="culture-description">
+                                <h3>Description</h3>
+                                <p>Le maïs est une céréale de base cultivée dans tout le Congo. Il est utilisé pour l'alimentation humaine et animale. Le maïs pousse rapidement et peut être cultivé en rotation avec d'autres cultures pour améliorer la fertilité du sol.</p>
+                            </div>
+                            <div class="culture-tips">
+                                <h3><i class="fas fa-lightbulb"></i> Conseils de culture</h3>
+                                <ul>
+                                    <li>Semer en lignes espacées de 75cm</li>
+                                    <li>Profondeur de semis: 3-5cm</li>
+                                    <li>Irrigation importante pendant la floraison</li>
+                                    <li>Protection contre les oiseaux nécessaire</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Haricot -->
+                    <div class="culture-card haricot">
+                        <div class="culture-image">
+                            <img src="/static/images/haricot.jpg" alt="Culture de Haricot" onerror="this.src='/static/images/haricot j.jpg'">
+                            <div class="culture-overlay">
+                                <span class="culture-icon"><i class="fas fa-seedling"></i></span>
+                            </div>
+                        </div>
+                        <div class="culture-content">
+                            <h2>Haricot</h2>
+                            <p class="culture-scientific">Phaseolus vulgaris</p>
+                            <div class="culture-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span><strong>Période de plantation:</strong> Saison des pluies</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Durée de croissance:</strong> 2-3 mois</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-thermometer-half"></i>
+                                    <span><strong>Température idéale:</strong> 18-25°C</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-tint"></i>
+                                    <span><strong>Besoin en eau:</strong> Modéré</span>
+                                </div>
+                            </div>
+                            <div class="culture-description">
+                                <h3>Description</h3>
+                                <p>Les haricots sont une source importante de protéines végétales au Congo. Ils peuvent être cultivés comme culture principale ou en association avec le maïs. Les haricots fixent l'azote dans le sol, améliorant ainsi sa fertilité pour les cultures suivantes.</p>
+                            </div>
+                            <div class="culture-tips">
+                                <h3><i class="fas fa-lightbulb"></i> Conseils de culture</h3>
+                                <ul>
+                                    <li>Semer directement en pleine terre</li>
+                                    <li>Espacement: 30-40cm entre les plants</li>
+                                    <li>Tuteurage nécessaire pour les variétés grimpantes</li>
+                                    <li>Récolte régulière pour encourager la production</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/cultures.js"></script>
+    <script src="/static/chatbot.js"></script>
+</body>
+</html>
+
