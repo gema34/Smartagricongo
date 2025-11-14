@@ -207,6 +207,13 @@ def meteo():
         return redirect(url_for('login_page'))
     return render_template('meteo.html', user=session['user'])
 
+# Carte agricole
+@app.route('/carte-agricole')
+def carte_agricole():
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+    return render_template('carte_agricole.html', user=session['user'])
+
 # Déconnexion
 @app.route('/logout')
 def logout():
